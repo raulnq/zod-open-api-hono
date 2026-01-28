@@ -5,7 +5,7 @@ import {
   type RouteHandler,
 } from '@hono/zod-openapi';
 import { todoSchema, todos, tags } from './todo.js';
-import { ProblemDocument } from 'http-problem-details/dist/ProblemDocument.js';
+import { ProblemDocument } from 'http-problem-details';
 import { problemDocumentSchema } from '@/schemas/problemDocument.js';
 import { OK, NOT_FOUND } from '@/http-status-codes.js';
 import { defaultHook } from '@/hooks.js';

@@ -1,6 +1,6 @@
 import type { Hook } from '@hono/zod-openapi';
 import { BAD_REQUEST } from '@/http-status-codes.js';
-import { ProblemDocument } from 'http-problem-details/dist/ProblemDocument.js';
+import { ProblemDocument } from 'http-problem-details';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultHook: Hook<any, any, any, any> = (result, c) => {

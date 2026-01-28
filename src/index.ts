@@ -7,30 +7,27 @@ import { listRoute } from './features/todos/listTodos.js';
 import { findRoute } from './features/todos/findTodo.js';
 import { checkRoute } from './features/todos/checkTodo.js';
 
-const app = new OpenAPIHono();
-
-app.doc('/doc', {
-  openapi: '3.0.0',
-  info: {
-    version: '1.0.0',
-    title: 'Todo API',
-  },
-});
-
-app.get(
-  '/reference',
-  Scalar({
-    url: '/doc',
-    theme: 'kepler',
-    layout: 'classic',
-    darkMode: true,
+const app = new OpenAPIHono()
+  .doc('/doc', {
+    openapi: '3.0.0',
+    info: {
+      version: '1.0.0',
+      title: 'Todo API',
+    },
   })
-);
-
-app.route('/', addRoute);
-app.route('/', listRoute);
-app.route('/', findRoute);
-app.route('/', checkRoute);
+  .get(
+    '/reference',
+    Scalar({
+      url: '/doc',
+      theme: 'kepler',
+      layout: 'classic',
+      darkMode: true,
+    })
+  )
+  .route('/', addRoute)
+  .route('/', listRoute)
+  .route('/', findRoute)
+  .route('/', checkRoute);
 
 serve(
   {
