@@ -1,11 +1,36 @@
 import { serve } from '@hono/node-server';
-import { Hono } from 'hono';
 import { ENV } from '@/env.js';
-const app = new Hono();
+import { OpenAPIHono } from '@hono/zod-openapi';
+import { addRoute } from '@/features/todos/addTodo.js';
+import { Scalar } from '@scalar/hono-api-reference';
+import { listRoute } from './features/todos/listTodos.js';
+import { findRoute } from './features/todos/findTodo.js';
+import { checkRoute } from './features/todos/checkTodo.js';
 
-app.get('/', c => {
-  return c.text('Hello Hono!');
+const app = new OpenAPIHono();
+
+app.doc('/doc', {
+  openapi: '3.0.0',
+  info: {
+    version: '1.0.0',
+    title: 'Todo API',
+  },
 });
+
+app.get(
+  '/reference',
+  Scalar({
+    url: '/doc',
+    theme: 'kepler',
+    layout: 'classic',
+    darkMode: true,
+  })
+);
+
+app.route('/', addRoute);
+app.route('/', listRoute);
+app.route('/', findRoute);
+app.route('/', checkRoute);
 
 serve(
   {
